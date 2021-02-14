@@ -3,12 +3,14 @@ from fastapi import Depends, HTTPException, status
 from schemas.users import UserBase
 from config.settings import Settings
 
+from pydantic import EmailStr
+
 settings = Settings()
 auth_router = APIRouter()
 
 
 @auth_router.post("/register", response_model=UserBase)
-async def register(email:str):
+async def register(email:EmailStr):
     # return {"s"}
     return {"email": email}
 
