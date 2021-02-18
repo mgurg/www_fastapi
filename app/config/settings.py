@@ -18,10 +18,10 @@ class Settings(BaseSettings):
     HOST: str = os.getenv("HOST", "127.0.0.1")
     PORT: int = os.getenv("PORT", 5000)
 
-    REGISTRATION_TOKEN_LIFETIME: int = 60*60
-    APP_NAME = "FAW"
-    SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-    TOKEN_ALGORITHM = "HS256"
+    REGISTRATION_TOKEN_LIFETIME : int = os.getenv("REGISTRATION_TOKEN_LIFETIME")
+    APP_NAME : str = os.getenv("APP_NAME")
+    SECRET_KEY : str = os.getenv("SECRET_KEY")
+    TOKEN_ALGORITHM : str = os.getenv("TOKEN_ALGORITHM")
 
     db_connection: str = os.getenv("DB_CONNECTION")
     db_host: str = os.getenv("DB_HOST")
