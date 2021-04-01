@@ -18,13 +18,16 @@ async def has_access(credentials: HTTPBasicCredentials = Depends(security)):
     token = credentials.credentials
 
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=settings.TOKEN_ALGORITHM, options={"verify_signature": False,
-                                                                                                       "verify_aud": False,
-                                                                                                       "verify_iss": False})
-        print("payload => ", payload)
+        payload = jwt.decode(token,
+                             settings.SECRET_KEY,
+                             algorithms=settings.TOKEN_ALGORITHM,
+                             options={"verify_signature": False,
+                                      "verify_aud": False,
+                                      "verify_iss": False})
+        # print("payload => ", payload)
     except JOSEError as e:  # catches any exception
         raise HTTPException(
             status_code=401,
             detail=str(e))
-            
+
     return "fake_token"

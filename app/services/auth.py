@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from config.settings import get_settings
 from models.users import User
-from tools.notification import Notify 
+from tools.notification import Notify
 
 from passlib.context import CryptContext
 
@@ -15,10 +15,15 @@ import bcrypt
 settings = get_settings()
 
 
-def user_exists(db: Session, user_mail : int)-> int:
+def user_exists(db: Session, user_mail: int) -> int:
     return db.query(User).filter(User.email == user_mail).count()
 
-def authenticate_user(db: Session, username: str, password : str)-> str:
+
+def user_uuid_exists(db: Session, user_uuid: str):
+    return db.query(User).filter(User.uuid == user_uuid).one_or_none()
+
+
+def authenticate_user(db: Session, username: str, password: str) -> str:
     user = db.query(User).filter(User.email == username).first()
 
     hash_pass = user.hashed_password
@@ -27,19 +32,20 @@ def authenticate_user(db: Session, username: str, password : str)-> str:
         return Auth.get_session_token(user.uuid)
 
     return None
-    
 
-def create_user(db: Session, username: str, password : str, uuid_id : str):
+
+def create_user(db: Session, username: str, password: str, uuid_id: str):
     hashed_password = Auth.get_password_hash(password)
     confirmation = Auth.get_confirmation_token(uuid_id)
 
-    print("jti: ")
-    print(confirmation['jti'])
-    
-    print("token: ")
-    print(confirmation['token'])
-    
-    db_user = User(email=username, hashed_password=hashed_password, uuid = str(uuid_id), confirmation=str(confirmation['jti']))
+    # print("jti: ")
+    # print(confirmation['jti'])
+
+    # print("token: ")
+    # print(confirmation['token'])
+
+    db_user = User(email=username, hashed_password=hashed_password,
+                   uuid=str(uuid_id), confirmation=str(confirmation['jti']))
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
