@@ -31,14 +31,17 @@ app.include_router(
     dependencies=PROTECTED
 )
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
+
 @app.get("/users")
 async def read_users(skip: int = 0, limit: int = 100):
-    return {"skip" : skip,
-	    "limit" : limit}
+    return {"skip": skip,
+            "limit": limit}
+
 
 @app.get("/auth_only/")
 async def read_items(token: str = Depends(has_access)):
@@ -46,6 +49,7 @@ async def read_items(token: str = Depends(has_access)):
 
 if __name__ == '__main__':
     if settings.ENV != "production":
-        uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True, debug=True)
+        uvicorn.run("main:app", host=settings.HOST,
+                    port=settings.PORT, reload=True, debug=True)
     else:
         uvicorn.run("main:app")
