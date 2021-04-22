@@ -3,6 +3,7 @@
 .idea
 static
 ve
+fast_ve
 *.txt
 
 # Byte-compiled / optimized / DLL files
