@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from config.bearer_auth import has_access
@@ -13,6 +14,22 @@ from config.settings import get_settings
 
 settings = get_settings()
 app = FastAPI()
+
+origins = [
+    "http://127.0.0.1:5000",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # routes
 PROTECTED = [Depends(has_access)]
