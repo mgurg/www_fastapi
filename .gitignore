@@ -1,8 +1,12 @@
+# MGU
+docker/mariadb/
+
 # Custom
 .vscode
+.idea
 static
 ve
-
+*.txt
 
 # Byte-compiled / optimized / DLL files
 *__pycache__/

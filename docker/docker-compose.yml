@@ -1,16 +1,14 @@
 version: '3'
 services:
- mysql:
-  image: mysql:8
-  container_name: mysql_docker
-  environment:
-   MYSQL_DATABASE: 'fastapi_db'
-   MYSQL_USER: 'fuser'
-   MYSQL_PASSWORD: 'fpass'
-   MYSQL_ROOT_PASSWORD: 'root'
-  ports:
-   - "3307:3306"
-  volumes:
-   - mysql_volume:/var/lib/mysql
-volumes:
- mysql_volume:
+   mariadb:
+    image: mariadb:10.4
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'maria_db'
+      MYSQL_USER: 'fuser'
+      MYSQL_PASSWORD: 'fpass'
+    ports:
+        - "3307:3306"
+    restart: on-failure
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
