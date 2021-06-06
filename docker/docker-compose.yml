@@ -3,10 +3,10 @@ services:
    mariadb:
     image: mariadb:10.4
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
       MYSQL_DATABASE: 'maria_db'
-      MYSQL_USER: 'fuser'
-      MYSQL_PASSWORD: 'fpass'
+      MYSQL_USER: ${USER}
+      MYSQL_PASSWORD: ${PASS}
     ports:
         - "3307:3306"
     restart: on-failure

@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from config.settings import get_settings
 from models.users import User
 from tools.notification import Notify
+from tools.mailer import Mailer
 
 from passlib.context import CryptContext
 
@@ -51,7 +52,7 @@ def create_user(db: Session, username: str, password: str, uuid_id: str):
     db.refresh(db_user)
 
     Notify.send_confirmation_message(confirmation["token"])
-
+    # Mailer.send_confirmation_message(confirmation["token"], "mgurgul@telecube.pl")
     return db_user
 
 
