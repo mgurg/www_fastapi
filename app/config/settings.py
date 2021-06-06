@@ -30,6 +30,11 @@ class Settings(BaseSettings):
     db_username: str = os.getenv("DB_USERNAME")
     db_password: str = os.getenv("DB_PASSWORD")
 
+    MAIL_HOST: str = os.getenv("MAIL_HOST")
+    MAIL_PORT: int = os.getenv("MAIL_PORT")
+    MAIL_USERNAME: str = os.getenv("MAIL_USERNAME")
+    MAIL_PASSWORD: str = os.getenv("MAIL_PASSWORD")
+
     class Config:
         env_prefix = ""
         env_file_encoding = "utf-8"
